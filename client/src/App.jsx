@@ -1,14 +1,11 @@
-import toast from "react-hot-toast"
+import JoinRoom from "./components/JoinRoom"
 
 
 function App() {
 
   return (
     <>
-    <h1>This is main page</h1>
-    <button onClick={()=>{
-      toast.success("This is button clicked")
-    }}>Click me</button>
+    <JoinRoom />
     </>
   )
 }
