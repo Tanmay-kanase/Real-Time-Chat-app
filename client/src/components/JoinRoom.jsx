@@ -1,6 +1,7 @@
 import { useState } from "react";
 import chaticon from "../assets/chat.png";
 import toast from "react-hot-toast";
+import { createRoomApi } from "../services/RoomSevices";
 
 const JoinRoom = () => {
   const [detail, setDetail] = useState({
@@ -14,10 +15,21 @@ const JoinRoom = () => {
     });
   }
 
-  function createRoom() {
+  async function createRoom() {
     if (validateForm) {
       // create room
-      
+      try {
+        const response = await createRoomApi(detail.roomId);
+        console.log(response);
+        toast.success("Room created Successfully");
+        joinChat();
+      } catch (error) {
+        if (error.status == 400) {
+          toast.error("Room already exists !!!!");
+        } else {
+          console.log(error);
+        }
+      }
     }
   }
 
@@ -63,9 +75,10 @@ const JoinRoom = () => {
           </label>
           <input
             type="text"
-            id="name"
+            id="roomId"
             onChange={handleormInputChange}
             value={detail.roomId}
+            name="roomId"
             placeholder="Enter your room ID..."
             className="w-full dark:bg-gray-600 px-4 py-2 border dark:border-gray-300 rounded-full"
           />

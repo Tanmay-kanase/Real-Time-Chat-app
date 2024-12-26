@@ -1,13 +1,11 @@
-import JoinRoom from "./components/JoinRoom"
-
+import JoinRoom from "./components/JoinRoom";
 
 function App() {
-
   return (
     <>
-    <JoinRoom />
+      <JoinRoom />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
