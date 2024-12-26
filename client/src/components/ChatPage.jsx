@@ -2,6 +2,79 @@ import { useRef, useState } from "react";
 import { MdAttachFile, MdSend } from "react-icons/md";
 
 const ChatPage = () => {
+  const [messages, setmessages] = useState([
+    {
+      content: "Hello",
+      sender: "Tanmay",
+    },
+    {
+      content: "Hello , How are you ?",
+      sender: "Yash",
+    },
+    {
+      content: "Im fine!!!",
+      sender: "Tanmay",
+    },
+    {
+      content: "I'm also fine",
+      sender: "Yash",
+    },
+    {
+      content: "Hello",
+      sender: "Tanmay",
+    },
+    {
+      content: "Hello , How are you ?",
+      sender: "Yash",
+    },
+    {
+      content: "Im fine!!!",
+      sender: "Tanmay",
+    },
+    {
+      content: "I'm also fine",
+      sender: "Yash",
+    },
+    {
+      content: "Hello",
+      sender: "Tanmay",
+    },
+    {
+      content: "Hello , How are you ?",
+      sender: "Yash",
+    },
+    {
+      content: "Im fine!!!",
+      sender: "Tanmay",
+    },
+    {
+      content: "I'm also fine",
+      sender: "Yash",
+    },
+    {
+      content: "Hello",
+      sender: "Tanmay",
+    },
+    {
+      content: "Hello , How are you ?",
+      sender: "Yash",
+    },
+    {
+      content: "Im fine!!!",
+      sender: "Tanmay",
+    },
+    {
+      content: "I'm also fine",
+      sender: "Yash",
+    },
+  ]);
+  const [input, setInput] = useState("");
+  const inputRef = useRef(null);
+  const chatBoxRef = useRef(null);
+  const [stompClient, setStompCLient] = useState(null);
+  const [roomId, setRoomId] = useState("");
+  const [currentUser] = useState("Tanmay");
+
   return (
     <div className="">
       <header className="dark:border-gray-700 fixed w-full dark:bg-gray-900  py-5 shadow  flex justify-around w-full fixed h-20">
@@ -25,8 +98,33 @@ const ChatPage = () => {
         </div>
       </header>
 
-      <main className="py-22  h-screen w-2/3 dark:bg-slate-600 mx-auto overflow-auto ">
-        <div className="message_container"></div>
+      <main className="py-20  h-screen w-2/3 dark:bg-slate-600 mx-auto overflow-auto ">
+        {messages.map((message, index) => (
+          <div
+            key={index}
+            className={`flex ${
+              message.sender === currentUser ? "justify-end" : "justify-start"
+            } `}
+          >
+            <div
+              className={`my-2 ${
+                message.sender === currentUser ? "bg-green-500" : "bg-gray-400"
+              } p-2 bg-blue-600 py-2 rounded max-w-xs`}
+            >
+              <div className="flex flex-row gap-2 ">
+                <img
+                  className="h-10 w-10"
+                  src={"https://avatar.iran.liara.run/public/36"}
+                  alt=""
+                />
+                <div className="flex flex-col gap-1">
+                  <p className="font-bold text-sm">{message.sender}</p>
+                  <p>{message.content}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </main>
       {/* Input message container */}
       <div className="fixed bottom-2 w-full h-16">
