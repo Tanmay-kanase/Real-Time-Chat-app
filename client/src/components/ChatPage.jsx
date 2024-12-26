@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { MdAttachFile, MdSend } from "react-icons/md";
 
 const ChatPage = () => {
-  const [messages, setmessages] = useState([
+  const [messages, setMessages] = useState([
     {
       content: "Hello",
       sender: "Tanmay",
