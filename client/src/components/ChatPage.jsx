@@ -1,7 +1,20 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdAttachFile, MdSend } from "react-icons/md";
+import useChatContext from "../context/chatContext";
+import { useNavigate } from "react-router";
 
 const ChatPage = () => {
+  const { roomId, currentUser, connected } = useChatContext();
+  console.log(roomId);
+  console.log(currentUser);
+  console.log(connected);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!connected) {
+      navigate("/");
+    }
+  }, [connected, roomId, currentUser]);
+
   const [messages, setMessages] = useState([
     {
       content: "Hello",
@@ -72,9 +85,22 @@ const ChatPage = () => {
   const inputRef = useRef(null);
   const chatBoxRef = useRef(null);
   const [stompClient, setStompCLient] = useState(null);
-  const [roomId, setRoomId] = useState("");
-  const [currentUser] = useState("Tanmay");
 
+  useEffect(() => {
+    const connectWebSocket = () => {
+      const socket = new SockJS(`http://localhost:8080/chat`);
+      const client = Stomp.over(socket);
+      client.connect({}, () => {
+        setStompCLient(client);
+        toast.success("Connected");
+        client.subscribe(`topic/room/${roomId}`, (message) => {
+          console.log(message);
+          const newMessage = JSON.parse(message.body);
+          setMessages((prev) => [...prev, newMessage]);
+        });
+      });
+    };
+  }, [roomId]);
   return (
     <div className="">
       <header className="dark:border-gray-700 fixed w-full dark:bg-gray-900  py-5 shadow  flex justify-around w-full fixed h-20">
