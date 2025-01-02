@@ -7,12 +7,10 @@ import { Toaster } from "react-hot-toast";
 import { ChatProvider } from "./context/chatContext.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <BrowserRouter>
-      <Toaster position="top-right" />
-      <ChatProvider>
-        <AppRoutes />
-      </ChatProvider>
-    </BrowserRouter>
-  </StrictMode>
+  <BrowserRouter>
+    <Toaster position="top-right" />
+    <ChatProvider>
+      <AppRoutes />
+    </ChatProvider>
+  </BrowserRouter>
 );

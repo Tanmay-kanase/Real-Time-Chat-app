@@ -18,7 +18,7 @@ import com.chat.Chat_app.repositories.RoomRepository;
 
 @RestController
 @RequestMapping("api/v1/rooms")
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:5173")
 public class RoomController {
 
     private RoomRepository roomRepository;

@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import PropTypes from "prop-types";
 
 const ChatContext = createContext();
 
@@ -21,6 +22,10 @@ export const ChatProvider = ({ children }) => {
       {children}
     </ChatContext.Provider>
   );
+};
+
+ChatProvider.propTypes = {
+  children: PropTypes.node.isRequired, // Validate the children prop
 };
 
 const useChatContext = () => useContext(ChatContext);

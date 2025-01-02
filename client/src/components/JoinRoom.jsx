@@ -12,7 +12,7 @@ const JoinRoom = () => {
   });
   const navigate = useNavigate();
 
-  const { roomId, userName, setRoomId, setCurrentUser, setConnected } =
+  const {  setRoomId, setCurrentUser, setConnected } =
     useChatContext();
   function handleormInputChange(event) {
     setDetail({
@@ -25,11 +25,11 @@ const JoinRoom = () => {
     if (validateForm) {
       // create room
       try {
-        const response = await createRoomApi(detail.roomId);
-        console.log(response);
+        const room = await createRoomApi(detail.roomId);
+        console.log(room);
         toast.success("Room created Successfully");
         setCurrentUser(detail.userName);
-        setRoomId(response.roomId);
+        setRoomId(room.roomId);
         setConnected(true);
         // forward to hat page...
         navigate("/chat");
@@ -100,7 +100,7 @@ const JoinRoom = () => {
           </label>
           <input
             type="text"
-            id="roomId"
+            id="name"
             onChange={handleormInputChange}
             value={detail.roomId}
             name="roomId"
