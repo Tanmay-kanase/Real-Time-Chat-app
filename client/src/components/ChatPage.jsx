@@ -39,9 +39,8 @@ const ChatPage = () => {
         console.log(error.message);
       }
     }
-    
-      getMessages();
-    
+
+    getMessages();
   }, []);
   useEffect(() => {
     const connectWebSocket = () => {
@@ -57,9 +56,8 @@ const ChatPage = () => {
         });
       });
     };
-    if (connected) {
-      connectWebSocket();
-    }
+
+    connectWebSocket();
   }, [roomId]);
 
   // Scroll down
@@ -96,6 +94,7 @@ const ChatPage = () => {
         JSON.stringify(message)
       );
       setInput("");
+      setMessages((prev) => [...prev, message]);
     }
   };
   return (
@@ -104,13 +103,13 @@ const ChatPage = () => {
         {/* Room name container*/}
         <div>
           <h1 className="text-2xl font-semibold">
-            Room : <span>{roomId}</span>
+            RoomId : <span>{roomId}</span>
           </h1>
         </div>
         {/* Username container */}
         <div>
           <h1 className="text-2xl font-semibold">
-            Room : <span>{currentUser}</span>
+            User : <span>{currentUser}</span>
           </h1>
         </div>
         {/* Leave Room */}
@@ -149,6 +148,7 @@ const ChatPage = () => {
                 <div className="flex flex-col gap-1">
                   <p className="font-bold text-sm">{message.sender}</p>
                   <p>{message.content}</p>
+                  
                 </div>
               </div>
             </div>
