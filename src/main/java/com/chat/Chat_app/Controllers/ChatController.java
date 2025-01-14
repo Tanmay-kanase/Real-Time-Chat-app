@@ -15,7 +15,7 @@ import com.chat.Chat_app.payload.MessageRequest;
 import com.chat.Chat_app.repositories.RoomRepository;
 
 @Controller
-@CrossOrigin("http://localhost:5173")
+@CrossOrigin("*")
 public class ChatController {
 
     private RoomRepository roomRepository;
