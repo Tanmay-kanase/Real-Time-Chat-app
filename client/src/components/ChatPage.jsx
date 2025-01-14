@@ -41,7 +41,7 @@ const ChatPage = () => {
     }
 
     getMessages();
-  }, []);
+  });
   useEffect(() => {
     const connectWebSocket = () => {
       const socket = new SockJS(`http://localhost:8080/chat`);
@@ -148,13 +148,13 @@ const ChatPage = () => {
                 <div className="flex flex-col gap-1">
                   <p className="font-bold text-sm">{message.sender}</p>
                   <p>{message.content}</p>
-                  
                 </div>
               </div>
             </div>
           </div>
         ))}
       </main>
+
       {/* Input message container */}
       <div className="fixed bottom-2 w-full h-16">
         <div className="h-full px-2 gap-4  flex items-center justify-between rounded w-2/3 mx-auto dark:bg-gray-900 ">
