@@ -6,6 +6,7 @@ import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
 import toast from "react-hot-toast";
 import { loadMessages } from "../services/RoomSevices";
+import axios from "axios";
 
 const ChatPage = () => {
   const {
@@ -24,6 +25,7 @@ const ChatPage = () => {
     }
   }, [connected, roomId, currentUser]);
 
+  const [file, setFile] = useState("");
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const chatBoxRef = useRef(null);
@@ -44,7 +46,7 @@ const ChatPage = () => {
   });
   useEffect(() => {
     const connectWebSocket = () => {
-      const socket = new SockJS(`http://localhost:8080/chat`);
+      const socket = new SockJS(`http://localhost:8093/chat`);
       const client = Stomp.over(socket);
       client.connect({}, () => {
         setStompCLient(client);
@@ -78,6 +80,39 @@ const ChatPage = () => {
     setCurrentUser("");
     setConnected(false);
   }
+
+  // Image upload to AWS S3
+
+  const uploadImage = async () => {
+    if (!file) {
+      console.log("Please select a file first!");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const image = await axios.post(
+        "http://localhost:8093/api/v1/s3",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(image);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // handle file change
+  const handleFile = (event) => {
+    setFile(event.target.files[0]);
+  };
+
   // Send Message Handling
 
   const sendMessage = async () => {
@@ -181,6 +216,13 @@ const ChatPage = () => {
               className="dark:bg-green-500 h-10 w-10  flex justify-center items-center  rounded-full"
             >
               <MdSend size={20} />
+            </button>
+            <input type="file" onChange={handleFile} />
+            <button
+              onClick={uploadImage}
+              className="dark:bg-green-500 h-10 w-10  flex justify-center items-center  rounded-full"
+            >
+              Upload image
             </button>
           </div>
         </div>
