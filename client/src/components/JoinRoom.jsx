@@ -108,6 +108,7 @@ const JoinRoom = () => {
             className="w-full dark:bg-gray-600 px-4 py-2 border dark:border-gray-300 rounded-full"
           />
         </div>
+        
         {/* Button */}
         <div className="flex justify-center gap-2 mt-4 ">
           <button

@@ -43,7 +43,7 @@ const ChatPage = () => {
     }
 
     getMessages();
-  });
+  }, []);
   useEffect(() => {
     const connectWebSocket = () => {
       const socket = new SockJS(`http://localhost:8093/chat`);
@@ -134,24 +134,24 @@ const ChatPage = () => {
   };
   return (
     <div className="">
-      <header className="dark:border-gray-700 fixed w-full dark:bg-gray-900  py-5 shadow  flex justify-around w-full fixed h-20">
-        {/* Room name container*/}
+      <header className="dark:border-gray-700 fixed w-full dark:bg-gray-900 py-5 shadow flex flex-wrap justify-between items-center px-4 md:px-8 h-20">
+        {/* Room name container */}
         <div>
-          <h1 className="text-2xl font-semibold">
-            RoomId : <span>{roomId}</span>
+          <h1 className="text-lg md:text-2xl font-semibold">
+            RoomId: <span>{roomId}</span>
           </h1>
         </div>
         {/* Username container */}
         <div>
-          <h1 className="text-2xl font-semibold">
-            User : <span>{currentUser}</span>
+          <h1 className="text-lg md:text-2xl font-semibold">
+            User: <span>{currentUser}</span>
           </h1>
         </div>
         {/* Leave Room */}
-        <div>
+        <div className="mt-2 md:mt-0">
           <button
             onClick={handleLogOut}
-            className="dark:bg-red-500 dark:hover:bg-red-700 px-3 py-3 rounded-full"
+            className="dark:bg-red-500 dark:hover:bg-red-700 px-4 py-2 rounded-full text-sm md:text-base"
           >
             Leave Room
           </button>
@@ -160,29 +160,29 @@ const ChatPage = () => {
 
       <main
         ref={chatBoxRef}
-        className="py-20  h-screen w-2/3 dark:bg-slate-600 mx-auto overflow-auto "
+        className="py-24 h-[calc(100vh-80px)] w-full max-w-5xl dark:bg-slate-600 mx-auto overflow-auto px-4"
       >
         {messages.map((message, index) => (
           <div
             key={index}
             className={`flex ${
               message.sender === currentUser ? "justify-end" : "justify-start"
-            } `}
+            }`}
           >
             <div
               className={`my-2 ${
                 message.sender === currentUser ? "bg-green-500" : "bg-gray-400"
-              } p-2 bg-blue-600 py-2 rounded max-w-xs`}
+              } py-2 px-4 rounded max-w-[80%]`}
             >
-              <div className="flex flex-row gap-2 ">
+              <div className="flex gap-2 items-start">
                 <img
-                  className="h-10 w-10"
+                  className="h-8 w-8 md:h-10 md:w-10 rounded-full"
                   src={"https://avatar.iran.liara.run/public/36"}
-                  alt=""
+                  alt="Avatar"
                 />
                 <div className="flex flex-col gap-1">
                   <p className="font-bold text-sm">{message.sender}</p>
-                  <p>{message.content}</p>
+                  <p className="text-sm md:text-base">{message.content}</p>
                 </div>
               </div>
             </div>
@@ -191,8 +191,8 @@ const ChatPage = () => {
       </main>
 
       {/* Input message container */}
-      <div className="fixed bottom-2 w-full h-16">
-        <div className="h-full px-2 gap-4  flex items-center justify-between rounded w-2/3 mx-auto dark:bg-gray-900 ">
+      <div className="fixed bottom-2 w-full px-4">
+        <div className="h-16 px-2 gap-4 flex items-center justify-between rounded w-full max-w-5xl mx-auto dark:bg-gray-900">
           <input
             type="text"
             value={input}
@@ -205,24 +205,24 @@ const ChatPage = () => {
               }
             }}
             placeholder="Type your message here..."
-            className="dark:bg-gray-700 w-full dark:border-gray-700 px-3 py-2 rounded-full focus:outline-none h-full focus:ring-0 "
+            className="dark:bg-gray-700 w-full dark:border-gray-700 px-3 py-2 rounded-full focus:outline-none h-full focus:ring-0 text-sm md:text-base"
           />
-          <div className="flex gap-1 ">
-            <button className="dark:bg-purple-500 h-10 w-10  flex justify-center items-center  rounded-full">
+          <div className="flex gap-2">
+            <button className="dark:bg-purple-500 h-10 w-10 flex justify-center items-center rounded-full">
               <MdAttachFile size={20} />
             </button>
             <button
               onClick={sendMessage}
-              className="dark:bg-green-500 h-10 w-10  flex justify-center items-center  rounded-full"
+              className="dark:bg-green-500 h-10 w-10 flex justify-center items-center rounded-full"
             >
               <MdSend size={20} />
             </button>
-            <input type="file" onChange={handleFile} />
+            <input type="file" onChange={handleFile} className="hidden" />
             <button
               onClick={uploadImage}
-              className="dark:bg-green-500 h-10 w-10  flex justify-center items-center  rounded-full"
+              className="dark:bg-green-500 h-10 w-10 flex justify-center items-center rounded-full"
             >
-              Upload image
+              Upload Image
             </button>
           </div>
         </div>
